@@ -1,5 +1,5 @@
-//! YEAR: 2023
-//! DAY:  01
+//! YEAR:   2023
+//! DAY:    01
 
 use crate::{Answers, Day};
 use fancy_regex::Regex;

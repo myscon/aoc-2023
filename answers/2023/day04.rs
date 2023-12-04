@@ -1,5 +1,5 @@
-//! YEAR:   {{YEAR}}
-//! DAY:    {{DAY}}
+//! YEAR:   2023
+//! DAY:    04
 
 use crate::prelude::*;
 use std::io::BufRead;

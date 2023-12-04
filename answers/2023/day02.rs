@@ -1,9 +1,9 @@
-//! YEAR: {{2023}}
-//! DAY:  {{02}}
+//! YEAR:   2023
+//! DAY:    02
 
 use crate::prelude::*;
-use fancy_regex::Regex;
 use std::io::BufRead;
+use fancy_regex::Regex;
 
 lazy_static! {
     static ref RED: i32 = 12;

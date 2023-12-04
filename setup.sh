@@ -22,8 +22,9 @@ fi
 
 if [ ! -f $CURRENT_DAY_ANS_PATH ]; then
     cp $TEMPLATE_PATH $ANSWER_PATH
-    sed -i "s/{{YEAR}}/$CURRENT_YEAR/g" $CURRENT_DAY_ANS_PATH
-    sed -i "s/{{DAY}}/$CURRENT_DAY/g" $CURRENT_DAY_ANS_PATH
+    sed -i "s/{{YEAR}}/$CURRENT_YEAR/g" $ANSWER_PATH
+    sed -i "s/{{DAY}}/$CURRENT_DAY/g" $ANSWER_PATH
+    cp $ANSWER_PATH $CURRENT_DAY_ANS_PATH
 else
     cp $CURRENT_DAY_ANS_PATH $ANSWER_PATH
 fi
