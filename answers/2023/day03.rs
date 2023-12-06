@@ -2,8 +2,8 @@
 //! DAY:    03
 
 use crate::prelude::*;
-use fancy_regex::Regex;
 use std::{collections::VecDeque, io::BufRead};
+use fancy_regex::Regex;
 
 lazy_static! {
     static ref SYMBOL: Regex = Regex::new(r"[^\d.]").unwrap();

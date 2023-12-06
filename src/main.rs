@@ -3,6 +3,7 @@ use std::{env, path::Path};
 
 mod day;
 mod answer;
+mod regex;
 mod prelude {
     pub use crate::day::{Answers, Day};
     pub use lazy_static::lazy_static;
@@ -33,6 +34,6 @@ fn main() {
         println!("{:?}", part_two_ans);
     } else {
         let part_one_ans = new_day.part_one().unwrap();
-        println!("{:?}", &part_one_ans);
+        println!("{:?}", part_one_ans);
     }
 }
