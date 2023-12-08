@@ -117,17 +117,17 @@ impl Rank for Hands {
 
     fn score_cards(&self, hand: &str, omoshiroi: bool) -> Vec<i32> {
         let scores;
+        let array;
         if omoshiroi {
-            scores = hand
-                .chars()
-                .map(|c| DISORDER.iter().position(|co| co == &c).unwrap() as i32)
-                .collect::<Vec<i32>>();
+            // The arrays don't really need to be lazy static but I guess this is the way ref them
+            array = &*DISORDER;
         } else {
-            scores = hand
-                .chars()
-                .map(|c| ORDER.iter().position(|co| co == &c).unwrap() as i32)
-                .collect::<Vec<i32>>();
+            array = &*ORDER;
         }
+        scores = hand
+            .chars()
+            .map(|c| array.iter().position(|co| co == &c).unwrap() as i32)
+            .collect::<Vec<i32>>();
         scores
     }
 
