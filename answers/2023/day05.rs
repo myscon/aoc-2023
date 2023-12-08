@@ -2,34 +2,23 @@
 //! DAY:    05
 
 use crate::prelude::*;
-use std::io::BufRead;
-
-use crate::regex;
+use crate::regex::regex;
 use rayon::iter::ParallelBridge;
 use rayon::prelude::ParallelIterator;
 
 impl Answers for Day {
-    fn new(input: PathBuf) -> Self {
-        Day { input }
-    }
-
-    fn read(&self) -> BufReader<File> {
-        let file = File::open(self.input.to_owned()).unwrap();
-        return BufReader::new(file);
-    }
-
-    fn part_one(&self) -> Result<String, Box<dyn Error>> {
-        let mut reader = self.read();
+    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
         let mut seeds_str = String::new();
-        let _ = reader.read_line(&mut seeds_str);
+        let _ = self.reader.read_line(&mut seeds_str);
         // I should probably start writing srfs so I don't have to keep copying and pasting
-        let mut seeds = regex::NUMBER
+        let mut seeds = regex("number")
             .find_iter(&seeds_str)
             .map(|s| s.unwrap().as_str().parse::<usize>().unwrap())
             .collect::<Vec<usize>>();
         let mut check = vec![true; seeds.len()];
-        for line in reader.lines() {
-            let read_line = line.unwrap();
+        let mut read_line = String::new();
+        let _ = self.reader.read_line(&mut read_line);
+        while read_line.len() > 0 {
             if !read_line.is_empty() {
                 if let Some(first_char) = read_line.chars().next() {
                     if !first_char.is_numeric() {
@@ -51,20 +40,21 @@ impl Answers for Day {
             } else {
                 check.iter_mut().for_each(|e| *e = true);
             }
+            read_line.clear();
+            let _ = self.reader.read_line(&mut read_line);
         }
         Ok(seeds.iter().min().unwrap().to_string())
     }
 
-    fn part_two(&self) -> Result<String, Box<dyn Error>> {
-        let mut reader = self.read();
+    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
         let mut seeds_str = String::new();
-        let _ = reader.read_line(&mut seeds_str);
-        let seeds = regex::NUMBER
+        let _ = self.reader.read_line(&mut seeds_str);
+        let seeds = regex("number")
             .find_iter(&seeds_str)
             .map(|s| s.unwrap().as_str().parse::<usize>().unwrap())
             .collect::<Vec<usize>>();
         let mut lines = vec![];
-        parse_lines(&mut reader, &mut lines);
+        parse_lines(&mut self.reader, &mut lines);
         let mut seed_bank = vec![];
         let mut answer = usize::MAX;
         for i in (0..seeds.len()).step_by(2) {

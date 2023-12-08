@@ -2,24 +2,15 @@
 //! DAY:    04
 
 use crate::prelude::*;
-use std::{collections::VecDeque, io::BufRead};
+use std::collections::VecDeque;
 
 impl Answers for Day {
-    fn new(input: PathBuf) -> Self {
-        Day { input }
-    }
-
-    fn read(&self) -> BufReader<File> {
-        let file = File::open(self.input.to_owned()).unwrap();
-        return BufReader::new(file);
-    }
-
-    fn part_one(&self) -> Result<String, Box<dyn Error>> {
-        let reader = self.read();
+    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
         let mut aggreg = 0;
         let base: i32 = 2;
-        for line in reader.lines() {
-            let read_line = line.unwrap();
+        let mut read_line = String::new();
+        let _ = self.reader.read_line(&mut read_line);
+        while read_line.len() > 0 {
             // I refuse to iterate char by char its too late at night
             let card_split = read_line.split(": ").collect::<Vec<&str>>()[1];
             let num_split = card_split.split("|").collect::<Vec<&str>>();
@@ -39,15 +30,17 @@ impl Answers for Day {
             }
             aggreg += card_score
         }
+        read_line.clear();
+        let _ = self.reader.read_line(&mut read_line);
         Ok(aggreg.to_string())
     }
 
-    fn part_two(&self) -> Result<String, Box<dyn Error>> {
-        let reader = self.read();
+    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
         let mut aggreg = 0;
         let mut card_acc = VecDeque::new();
-        for line in reader.lines() {
-            let read_line = line.unwrap();
+        let mut read_line = String::new();
+        let _ = self.reader.read_line(&mut read_line);
+        while read_line.len() > 0 {
             // Maybe I should have made something better...
             let card_split = read_line.split(": ").collect::<Vec<&str>>()[1];
             let num_split = card_split.split("|").collect::<Vec<&str>>();
@@ -86,6 +79,8 @@ impl Answers for Day {
                     }
                 }
             }
+            read_line.clear();
+            let _ = self.reader.read_line(&mut read_line);
             aggreg += base;
         }
         Ok(aggreg.to_string())

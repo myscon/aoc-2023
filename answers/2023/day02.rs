@@ -2,35 +2,23 @@
 //! DAY:    02
 
 use crate::prelude::*;
-use std::io::BufRead;
-use fancy_regex::Regex;
+use crate::regex::regex;
 
 lazy_static! {
     static ref RED: i32 = 12;
     static ref GREEN: i32 = 13;
     static ref BLUE: i32 = 14;
-    static ref GAME_REG: Regex = Regex::new(r"(?<=Game )\d+").unwrap();
-    static ref COLOR_REG: Regex = Regex::new(r"(\d+) (red|green|blue)").unwrap();
 }
 
 impl Answers for Day {
-    fn new(input: PathBuf) -> Self {
-        Day { input }
-    }
-
-    fn read(&self) -> BufReader<File> {
-        let file = File::open(self.input.to_owned()).unwrap();
-        return BufReader::new(file);
-    }
-
-    fn part_one(&self) -> Result<String, Box<dyn Error>> {
-        let reader = self.read();
+    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
         let mut aggreg = 0;
-        for line in reader.lines() {
-            let read_line = line.unwrap();
-            let game_match = GAME_REG.find(&read_line).unwrap().unwrap();
+        let mut read_line = String::new();
+        let _ = self.reader.read_line(&mut read_line);
+        while read_line.len() > 0 {
+            let game_match = regex("game").find(&read_line).unwrap().unwrap();
             let game_number = game_match.as_str().parse::<i32>().unwrap();
-            let color_matches = COLOR_REG.captures_iter(&read_line);
+            let color_matches = regex("digit_color").captures_iter(&read_line);
             let mut valid_game = true;
             for captures in color_matches {
                 let captures = captures?;
@@ -53,16 +41,18 @@ impl Answers for Day {
             if valid_game {
                 aggreg += game_number;
             }
+            read_line.clear();
+            let _ = self.reader.read_line(&mut read_line);
         }
         Ok(aggreg.to_string())
     }
 
-    fn part_two(&self) -> Result<String, Box<dyn Error>> {
-        let reader = self.read();
+    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
         let mut aggreg = 0;
-        for line in reader.lines() {
-            let read_line = line.unwrap();
-            let color_matches = COLOR_REG.captures_iter(&read_line);
+        let mut read_line = String::new();
+        let _ = self.reader.read_line(&mut read_line);
+        while read_line.len() > 0 {
+            let color_matches = regex("digit_color").captures_iter(&read_line);
             let mut red_max = 0;
             let mut green_max = 0;
             let mut blue_max = 0;
@@ -89,6 +79,8 @@ impl Answers for Day {
                     _ => panic!("You might be color blind."),
                 }
             }
+            read_line.clear();
+            let _ = self.reader.read_line(&mut read_line);
             aggreg += red_max * green_max * blue_max;
         }
         Ok(aggreg.to_string())

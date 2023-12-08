@@ -1,0 +1,8 @@
+[patterns]
+num_word_f = "(one|two|three|four|five|six|seven|eight|nine|\\d)"
+num_word_r = "(eno|owt|eerht|ruof|evif|xis|neves|thgie|enin|\\d)"
+game = "(?<=Game )\\d+"
+digit_color = "(\\d+) (red|green|blue)"
+non_digit = "[^\\d.]"
+number = "\\d+"
+gear = "\\*"

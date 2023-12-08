@@ -1,30 +1,15 @@
 //! YEAR:   2023
 //! DAY:    01
 
-use crate::{Answers, Day};
-use fancy_regex::Regex;
-use std::{
-    error::Error,
-    fs::File,
-    io::{BufRead, BufReader},
-    path::PathBuf,
-};
+use crate::prelude::*;
+use crate::regex::regex;
 
 impl Answers for Day {
-    fn new(input: PathBuf) -> Self {
-        Day { input }
-    }
-
-    fn read(&self) -> BufReader<File> {
-        let file = File::open(self.input.to_owned()).unwrap();
-        return BufReader::new(file);
-    }
-
-    fn part_one(&self) -> Result<String, Box<dyn Error>> {
-        let reader = self.read();
+    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
         let mut aggreg = 0;
-        for line in reader.lines() {
-            let read_line = line.unwrap();
+        let mut read_line = String::new();
+        let _ = self.reader.read_line(&mut read_line);
+        while read_line.len() > 0 {
             let mut clear = true;
             let mut first = 0;
             let mut last = 0;
@@ -37,27 +22,24 @@ impl Answers for Day {
                     }
                 }
             }
+            read_line.clear();
+            let _ = self.reader.read_line(&mut read_line);
             aggreg += first * 10 + last;
         }
         Ok(aggreg.to_string())
     }
 
-    fn part_two(&self) -> Result<String, Box<dyn Error>> {
-        let reader = self.read();
-        let for_pat = r"(one|two|three|four|five|six|seven|eight|nine|\d)";
-        let rev_pat = r"(eno|owt|eerht|ruof|evif|xis|neves|thgie|enin|\d)";
-        let pattern_f = Regex::new(for_pat).unwrap();
-        let pattern_l = Regex::new(rev_pat).unwrap();
-        // It turns out this doesn't cover overlapping values
-        // let pattern_l = Regex::new(&format!(r"({})(?!.*\b\1\b)", for_pat)).unwrap();
-
+    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
         let mut aggreg = 0;
-        for line in reader.lines() {
-            let read_line = line.unwrap();
+        let mut read_line = String::new();
+        let _ = self.reader.read_line(&mut read_line);
+        while read_line.len() > 0 {
             let rev = read_line.chars().rev().collect::<String>();
-            let first = unwrap_present(false, pattern_f.find(&read_line));
-            let last = unwrap_present(true, pattern_l.find(&rev));
+            let first = unwrap_present(false, regex("num_word_f").find(&read_line));
+            let last = unwrap_present(true, regex("num_word_r").find(&rev));
             aggreg += first * 10 + last;
+            read_line.clear();
+            let _ = self.reader.read_line(&mut read_line);
         }
         Ok(aggreg.to_string())
     }

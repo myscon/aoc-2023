@@ -2,34 +2,18 @@
 //! DAY:    03
 
 use crate::prelude::*;
-use std::{collections::VecDeque, io::BufRead};
-use fancy_regex::Regex;
-
-lazy_static! {
-    static ref SYMBOL: Regex = Regex::new(r"[^\d.]").unwrap();
-    static ref NUMBER: Regex = Regex::new(r"\d+").unwrap();
-    static ref GEAR: Regex = Regex::new(r"\*").unwrap();
-}
+use crate::regex:: {NUMBER, GEAR};
+use std::collections::VecDeque;
 
 impl Answers for Day {
-    fn new(input: PathBuf) -> Self {
-        Day { input }
-    }
-
-    fn read(&self) -> BufReader<File> {
-        let file = File::open(self.input.to_owned()).unwrap();
-        return BufReader::new(file);
-    }
-
-    fn part_one(&self) -> Result<String, Box<dyn Error>> {
-        let mut reader = self.read();
+    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
         let mut aggreg = 0;
         let mut targets = VecDeque::new();
         targets.push_back("".to_string());
         for _i in 0..2 {
-            enqueue_line(&mut targets, &mut reader);
+            self.enqueue_line(&mut targets);
         }
-        let mut num_matches = NUMBER.find_iter(&targets[1]);
+        let mut num_matches = regex("number").find_iter(&targets[1]);
         while !targets[1].is_empty() {
             for num in &mut num_matches {
                 let num = num.unwrap();
@@ -40,21 +24,20 @@ impl Answers for Day {
                 }
             }
             let _ = targets.pop_front();
-            enqueue_line(&mut targets, &mut reader);
-            num_matches = NUMBER.find_iter(&targets[1]);
+            self.enqueue_line(&mut targets);
+            num_matches = regex("number").find_iter(&targets[1]);
         }
         Ok(aggreg.to_string())
     }
 
-    fn part_two(&self) -> Result<String, Box<dyn Error>> {
-        let mut reader = self.read();
+    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
         let mut aggreg = 0;
         let mut targets = VecDeque::new();
         targets.push_back("".to_string());
         for _i in 0..2 {
-            enqueue_line(&mut targets, &mut reader);
+            self.enqueue_line(&mut targets);
         }
-        let mut num_matches = GEAR.find_iter(&targets[1]);
+        let mut num_matches = regex("asterisk").find_iter(&targets[1]);
         while !targets[1].is_empty() {
             for num in &mut num_matches {
                 let num = num.unwrap();
@@ -63,8 +46,8 @@ impl Answers for Day {
                 aggreg += number_search(&targets, start, end);
             }
             let _ = targets.pop_front();
-            enqueue_line(&mut targets, &mut reader);
-            num_matches = GEAR.find_iter(&targets[1]);
+            self.enqueue_line(&mut targets);
+            num_matches = regex("asterisk").find_iter(&targets[1]);
         }
         Ok(aggreg.to_string())
     }
@@ -74,7 +57,7 @@ fn number_search(targets: &VecDeque<String>, start: usize, end: usize) -> i32 {
     let mut nums = vec!();
     for target in targets {
         if !target.is_empty() {
-            let num_matches = NUMBER.find_iter(&target[start..end]);
+            let num_matches = regex("number").find_iter(&target[start..end]);
             for num_match in num_matches {
                 let num_res = num_match.unwrap();
                 let st = num_res.start();
@@ -94,15 +77,21 @@ fn number_search(targets: &VecDeque<String>, start: usize, end: usize) -> i32 {
 
 fn symbol_search(targets: &VecDeque<String>, start: usize, end: usize) -> bool {
     for target in targets {
-        if !target.is_empty() && SYMBOL.find(&target[start..end]).unwrap().is_some() {
+        if !target.is_empty() && regex("non_digit").find(&target[start..end]).unwrap().is_some() {
             return true;
         }
     }
     return false;
 }
 
-fn enqueue_line(queue: &mut VecDeque<String>, reader: &mut BufReader<File>) {
-    let mut texts = String::new();
-    let _ = reader.read_line(&mut texts);
-    queue.push_back(texts);
+trait Queue {
+    fn enqueue_line(&mut self, queue: &mut VecDeque<String>);
+}
+
+impl Queue for Day {
+    fn enqueue_line(&mut self, queue: &mut VecDeque<String>,) {
+        let mut texts = String::new();
+        let _ = self.reader.read_line(&mut texts);
+        queue.push_back(texts);
+    }   
 }
