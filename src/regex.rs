@@ -15,7 +15,8 @@ fn init_regex_table() -> map::Map<String, Value>{
     return patterns_table.clone();
 }
 
-pub fn _regex(pattern_key: &str) -> Regex {
+#[allow(unused)]
+pub fn regex(pattern_key: &str) -> Regex {
     let pattern = REGEX_TABLE
         .get(pattern_key).unwrap()
         .as_str().unwrap();
