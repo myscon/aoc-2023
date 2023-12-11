@@ -6,8 +6,7 @@ pub trait Answers {
 }
 
 pub struct Day {
-    pub input: PathBuf,
-    pub reader: BufReader<File>
+    pub input: String,
 }
 
 pub trait Constructor {
@@ -16,7 +15,6 @@ pub trait Constructor {
 
 impl Constructor for Day {
     fn new(input: PathBuf) -> Self {
-        let file = File::open(input.to_owned()).unwrap();
-        Day { input, reader: BufReader::new(file) }
+        Day { input: fs::read_to_string(input).expect("File read error") }
     }
 }

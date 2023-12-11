@@ -55,7 +55,7 @@ impl Paths for Maze {
         let mut start = Coord { y: 0, x: 0 };
         let mut map = HashMap::new();
         // this made me question whether the regex crate was worth it...
-        let pattern = regex("S");
+        let pattern = regex("s");
         // I suppose I could have left the maze as is and use this to map directions but
         // I didn't know how I would solve part two and didn't know what I would need
         map.insert(

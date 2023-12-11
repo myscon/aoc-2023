@@ -5,7 +5,7 @@ mod day;
 mod answer;
 mod regex;
 mod prelude {
-    pub use std::io::BufRead;
+    pub use std::fs;
     pub use crate::day::{Answers, Day, Constructor};
     pub use lazy_static::lazy_static;
     pub use std::{error::Error, fs::File, io::BufReader, path::PathBuf};
@@ -30,6 +30,7 @@ fn main() {
 
     let mut new_day = Day::new(input_path);
 
+    // To do: make some better handling. Maybe this will be for 2024
     if args.two {
         let part_two_ans = new_day.part_two().unwrap();
         println!("{:?}", part_two_ans);
