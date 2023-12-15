@@ -50,7 +50,6 @@ impl Telescope for Universe {
             line_num += 1
         }
         // what is this O(∞)?
-        println!("{empty_cols:?}");
         let mut emptyc = 0;
         for i in 0..empty_cols.len() {
             if empty_cols[i] == 0 {

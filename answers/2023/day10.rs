@@ -184,8 +184,7 @@ impl Paths for Maze {
                 break;
             }
         }
-        let mut stop_flag = false;
-        '_loop: while !stop_flag {
+        '_loop: while curr_node != self.start {
             let prot_move = &mut self.maze[curr_node.y as usize][curr_node.x as usize];
             prot_move.t = true;
             let curr_move = Coord {
@@ -201,7 +200,6 @@ impl Paths for Maze {
             steps += 1;
             if curr_node == self.start {
                 self.length = steps;
-                stop_flag = true;
             }
         }
     }

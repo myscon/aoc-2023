@@ -1,4 +1,4 @@
 [env]
 CURRENT_YEAR = "2023"
-CURRENT_DAY_NAME = "day11"
-CURRENT_DAY_ANS_PATH = "answers/2023/day11.rs"
+CURRENT_DAY_NAME = "day12"
+CURRENT_DAY_ANS_PATH = "answers/2023/day12.rs"
