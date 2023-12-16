@@ -18,11 +18,7 @@ impl Answers for Day {
 struct Advent {
 }
 
-trait Code {
-    fn new(input: &str) -> Self;
-}
-
-impl Code for Advent {
+impl Advent {
     fn new(input: &str) -> Self {
         Advent { }
     }

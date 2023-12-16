@@ -1,11 +1,9 @@
 //! YEAR:   2023
 //! DAY:    14
 
-use std::collections::HashMap;
-
-use itertools::Itertools;
-
 use crate::prelude::*;
+use std::collections::HashMap;
+use itertools::Itertools;
 
 impl Answers for Day {
     fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
@@ -43,15 +41,7 @@ struct Reflector {
     dish: Vec<Vec<char>>,
 }
 
-trait Roll {
-    fn new(input: &str) -> Self;
-    fn tilt_vert(&mut self, direction: &str);
-    fn tilt_horz(&mut self, direction: &str);
-    fn tally_dish(&self) -> usize;
-    fn compare_original(&self) -> bool;
-}
-
-impl Roll for Reflector {
+impl Reflector {
     fn new(input: &str) -> Self {
         let dish = input.lines().map(|l| l.chars().collect_vec()).collect_vec();
         Reflector {

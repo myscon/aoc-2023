@@ -19,12 +19,7 @@ struct Valley {
     sections: Vec<Vec<Vec<char>>>,
 }
 
-trait Mirrors {
-    fn new(input: &str) -> Self;
-    fn count_mirrors(&self, smudge: bool) -> usize;
-}
-
-impl Mirrors for Valley {
+impl Valley {
     fn new(input: &str) -> Self {
         let mut section = vec![];
         let mut sections = vec![];
