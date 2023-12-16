@@ -1,3 +1,6 @@
+//! YEAR:   {{YEAR}}
+//! DAY:    {{DAY}}
+
 use crate::prelude::*;
 
 impl Answers for Day {
