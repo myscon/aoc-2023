@@ -1,12 +1,12 @@
 use clap::Parser;
-use std::{env, path::Path};
+use std::{env, path::Path, time::Instant};
 
 mod day;
 mod answer;
 mod regex;
 mod prelude {
     pub use std::fs;
-    pub use crate::day::{Answers, Day, Constructor};
+    pub use crate::day::{Answers, Day};
     pub use lazy_static::lazy_static;
     pub use std::{error::Error, fs::File, io::BufReader, path::PathBuf};
 }
@@ -29,13 +29,20 @@ fn main() {
         .with_extension("txt");
 
     let mut new_day = Day::new(input_path);
-
-    // To do: make some better handling. Maybe this will be for 2024
     if args.two {
-        let part_two_ans = new_day.part_two().unwrap();
-        println!("{:?}", part_two_ans);
+        time_method_call(&mut new_day, Day::part_two);
     } else {
-        let part_one_ans = new_day.part_one().unwrap();
-        println!("{:?}", part_one_ans);
+        time_method_call(&mut new_day, Day::part_one);
     }
+    
+}
+
+fn time_method_call<F>(day: &mut Day, method: F)
+where
+    F: Fn(&mut Day) -> String
+{
+    let start = Instant::now();
+    let answer = method(day);
+    let end = start.elapsed();
+    println!("Answer: {{ {answer} }} took {{ {end:.2?} }} to complete.");
 }

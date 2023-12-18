@@ -8,16 +8,16 @@ use std::collections::{BinaryHeap, HashSet};
 use crate::prelude::*;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let mut city = City::new(&self.input);
         city.find_path(Coords { x: 0, y: 0 }, 1, 3);
-        Ok(city.get_min_loss().to_string())
+        city.get_min_loss().to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let mut city = City::new(&self.input);
         city.find_path(Coords { x: 0, y: 0 }, 4, 10);
-        Ok(city.get_min_loss().to_string())
+        city.get_min_loss().to_string()
     }
 }
 
