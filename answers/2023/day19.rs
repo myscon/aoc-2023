@@ -154,14 +154,9 @@ impl SortSystem {
             .par_bridge()
             .map(|(x, m, a, s)| {
                 let mut part = Part {
-                    xmas: vec![
-                        ('x', x as usize),
-                        ('m', m as usize),
-                        ('a', a as usize),
-                        ('s', s as usize),
-                    ]
-                    .into_iter()
-                    .collect::<HashMap<char, usize>>(),
+                    xmas: vec![('x', x), ('m', m), ('a', a), ('s', s)]
+                        .into_iter()
+                        .collect::<HashMap<char, usize>>(),
                     res: "in".to_string(),
                 };
                 run_workflow(&self.workflows, &mut part);
@@ -188,15 +183,10 @@ impl SortSystem {
     }
     fn find_accept_conditions(&self) -> usize {
         let range = RatingRange {
-            // Is there something similar to python's unpack * operator?
-            xmas: vec![
-                ('x', (1, 4000)),
-                ('m', (1, 4000)),
-                ('a', (1, 4000)),
-                ('s', (1, 4000)),
-            ]
-            .into_iter()
-            .collect::<HashMap<char, (usize, usize)>>(),
+            xmas: ['x', 'm', 'a', 's']
+                .into_iter()
+                .map(|c| (c, (1, 4000)))
+                .collect::<HashMap<char, (usize, usize)>>(),
             res: "in".to_string(),
         };
         let mut memo = HashSet::new();
@@ -243,12 +233,11 @@ impl SortSystem {
                 }
             }
         }
-
     }
 }
 
-fn calc_combinations(range: &RatingRange) -> usize{
-    range.xmas.values().fold(1, |acc, r| acc*(r.1-r.0 +1))
+fn calc_combinations(range: &RatingRange) -> usize {
+    range.xmas.values().fold(1, |acc, r| acc * (r.1 - r.0 + 1))
 }
 
 fn run_workflow(workflows: &HashMap<String, Workflow>, part: &mut Part) {
