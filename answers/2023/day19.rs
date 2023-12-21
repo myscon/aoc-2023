@@ -97,7 +97,7 @@ impl SortSystem {
         };
 
         let workflows_finder = regex("2318_workflow");
-        let xmas_finder = regex("2318_xmas");
+        let xmas_finder = regex("2319_xmas");
         while !line.is_empty() {
             let groups = workflows_finder.captures(line).unwrap().unwrap();
             sort_system.workflows.insert(
@@ -121,7 +121,7 @@ impl SortSystem {
             line = lines.next().unwrap()
         }
         line = lines.next().unwrap();
-        let part_finder = regex("2318_part_ratings");
+        let part_finder = regex("2319_part_ratings");
         while !line.is_empty() {
             sort_system.parts.push(Part {
                 xmas: part_finder
