@@ -10,16 +10,16 @@ use std::thread;
 use num_integer::lcm;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let mut desert = Desert::new(&mut self.reader, false);
         desert.traverse();
-        Ok(desert.steps.to_string())
+        desert.steps.to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let mut desert = Desert::new(&mut self.reader, true);
         desert.spooky_traverse();
-        Ok(desert.steps.to_string())
+        desert.steps.to_string()
     }
 }
 

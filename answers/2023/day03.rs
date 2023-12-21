@@ -6,7 +6,7 @@ use crate::regex:: {NUMBER, GEAR};
 use std::collections::VecDeque;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let mut aggreg = 0;
         let mut targets = VecDeque::new();
         targets.push_back("".to_string());
@@ -27,10 +27,10 @@ impl Answers for Day {
             self.enqueue_line(&mut targets);
             num_matches = regex("number").find_iter(&targets[1]);
         }
-        Ok(aggreg.to_string())
+        aggreg.to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let mut aggreg = 0;
         let mut targets = VecDeque::new();
         targets.push_back("".to_string());
@@ -49,7 +49,7 @@ impl Answers for Day {
             self.enqueue_line(&mut targets);
             num_matches = regex("asterisk").find_iter(&targets[1]);
         }
-        Ok(aggreg.to_string())
+        aggreg.to_string()
     }
 }
 

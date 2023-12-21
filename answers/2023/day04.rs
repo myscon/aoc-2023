@@ -5,7 +5,7 @@ use crate::prelude::*;
 use std::collections::VecDeque;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let mut aggreg = 0;
         let base: i32 = 2;
         let mut read_line = String::new();
@@ -32,10 +32,10 @@ impl Answers for Day {
         }
         read_line.clear();
         let _ = self.reader.read_line(&mut read_line);
-        Ok(aggreg.to_string())
+        aggreg.to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let mut aggreg = 0;
         let mut card_acc = VecDeque::new();
         let mut read_line = String::new();
@@ -83,6 +83,6 @@ impl Answers for Day {
             let _ = self.reader.read_line(&mut read_line);
             aggreg += base;
         }
-        Ok(aggreg.to_string())
+        aggreg.to_string()
     }
 }

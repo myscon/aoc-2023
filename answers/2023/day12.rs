@@ -12,14 +12,14 @@ use rayon::iter::ParallelBridge;
 use rayon::prelude::ParallelIterator;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let records = Springs::new(&self.input, false);
-        Ok(records.records_count.to_string())
+        records.records_count.to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let records = Springs::new(&self.input, true);
-        Ok(records.records_count.to_string())
+        records.records_count.to_string()
     }
 }
 

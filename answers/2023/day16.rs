@@ -7,15 +7,15 @@ use std::collections::{HashMap, HashSet};
 use crate::prelude::*;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let mut contraption = Contraption::new(&self.input);
         contraption.traverse_grid(Point { x: 0, y: 0 }, Point { x: 1, y: 0 });
-        Ok(contraption.tally_grid().to_string())
+        contraption.tally_grid().to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let mut contraption = Contraption::new(&self.input);
-        Ok(contraption.config_actions().to_string())
+        contraption.config_actions().to_string()
     }
 }
 

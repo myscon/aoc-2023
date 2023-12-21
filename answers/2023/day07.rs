@@ -12,12 +12,12 @@ lazy_static! {
 }
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
-        Ok(self.deal_cards(false))
+    fn part_one(&mut self) -> String {
+        self.deal_cards(false)
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
-        Ok(self.deal_cards(true))
+    fn part_two(&mut self) -> String {
+        self.deal_cards(true)
     }
 }
 

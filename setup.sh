@@ -13,12 +13,12 @@ CURRENT_DAY_NAME=day${CURRENT_DAY}
 CURRENT_DAY_ANS_PATH="answers/${CURRENT_YEAR}/day${CURRENT_DAY}.rs"
 INPUT_FILE_PATH=inputs/${CURRENT_YEAR}/day${CURRENT_DAY}.txt
 
-# if [ ! -f $INPUT_FILE_PATH ]; then
+if [ ! -f $INPUT_FILE_PATH ]; then
     aoc download --day $CURRENT_DAY -o --input-only --input-file ${INPUT_FILE_PATH}
     if [ $? -ne 0 ]; then exit 1; fi
-# else
-#     echo "Day ${CURRENT_DAY} already downloaded. Skipping download"
-# fi
+else
+    echo "Day ${CURRENT_DAY} already downloaded. Skipping download"
+fi
 
 if [ ! -f $CURRENT_DAY_ANS_PATH ]; then
     cp $TEMPLATE_PATH $ANSWER_PATH

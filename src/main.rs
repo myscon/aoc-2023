@@ -8,7 +8,7 @@ mod prelude {
     pub use std::fs;
     pub use crate::day::{Answers, Day};
     pub use lazy_static::lazy_static;
-    pub use std::{error::Error, fs::File, io::BufReader, path::PathBuf};
+    pub use std::{error::Error, io::{BufReader, BufRead}, path::PathBuf};
 }
 
 use prelude::*;
@@ -28,7 +28,7 @@ fn main() {
         .join(current_day_name)
         .with_extension("txt");
 
-    let mut new_day = Day::new(input_path);
+    let mut new_day = Day::new(&input_path);
     if args.two {
         time_method_call(&mut new_day, Day::part_two);
     } else {

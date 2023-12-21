@@ -6,13 +6,13 @@ use std::collections::HashMap;
 use itertools::Itertools;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let mut dish = Reflector::new(&self.input);
         dish.tilt_vert("north");
-        Ok(dish.tally_dish().to_string())
+        dish.tally_dish().to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let mut dish = Reflector::new(&self.input);
         let mut cycler = HashMap::new();
         let mut idx = 0;
@@ -32,7 +32,7 @@ impl Answers for Day {
             }
             idx += 1;
         }
-        Ok(dish.tally_dish().to_string())
+        dish.tally_dish().to_string()
     }
 }
 

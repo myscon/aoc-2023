@@ -5,7 +5,7 @@ use crate::prelude::*;
 use crate::regex::regex;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let times = self.get_numbers();
         let distances = self.get_numbers();
         let mut count_agg = vec![];
@@ -15,14 +15,14 @@ impl Answers for Day {
         Ok(count_agg.iter().fold(1, |acc, &x| acc * x).to_string())
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let time = self.get_number();
         let distance = self.get_number();
         let loop_range = 0..time;
         let count_agg = loop_range
         .map(|s| get_winner(time, s, distance))
         .fold(0, |acc, x| acc + x);
-        Ok(count_agg.to_string())
+        count_agg.to_string()
     }
 }
 

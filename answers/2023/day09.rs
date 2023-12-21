@@ -6,28 +6,28 @@ use rayon::iter::{IntoParallelIterator, ParallelExtend};
 use rayon::prelude::ParallelIterator;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let mut history = History::new(&mut self.reader);
         history
             .histories
             .par_extend(history.lines.into_par_iter().map(|v| parse_line(&v, false)));
-        Ok(history
+        history
             .histories
             .iter()
             .fold(0, |acc, x| acc + x)
-            .to_string())
+            .to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let mut history = History::new(&mut self.reader);
         history
             .histories
             .par_extend(history.lines.into_par_iter().map(|v| parse_line(&v, true)));
-        Ok(history
+        history
             .histories
             .iter()
             .fold(0, |acc, x| acc + x)
-            .to_string())
+            .to_string()
     }
 }
 

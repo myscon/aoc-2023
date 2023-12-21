@@ -6,17 +6,17 @@ use rayon::iter::{IndexedParallelIterator, IntoParallelRefIterator};
 use rayon::prelude::ParallelIterator;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let mut reflector = Reflector::new(&self.input);
         reflector.verify_hashes();
-        Ok(reflector.verify_hashes().to_string())
+        reflector.verify_hashes().to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let mut reflector = Reflector::new(&self.input);
         reflector.hash_labels();
         reflector.install_lenses();
-        Ok(reflector.calculate_power().to_string())
+        reflector.calculate_power().to_string()
     }
 }
 

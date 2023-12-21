@@ -6,17 +6,17 @@ use crate::regex::regex;
 use std::collections::HashMap;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let mut maze = Maze::new(&mut self.reader);
         maze.generate_loop();
-        Ok(maze.length.div_ceil(2).to_string())
+        maze.length.div_ceil(2).to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let mut maze = Maze::new(&mut self.reader);
         maze.generate_loop();
         maze.calculate_area();
-        Ok(maze.area.to_string())
+        maze.area.to_string()
     }
 }
 

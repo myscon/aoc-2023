@@ -4,12 +4,12 @@
 use crate::prelude::*;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let valley = Valley::new(&self.input);
         Ok(valley.count_mirrors(false).to_string())
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let valley = Valley::new(&self.input);
         Ok(valley.count_mirrors(true).to_string())
     }

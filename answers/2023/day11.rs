@@ -5,14 +5,14 @@ use crate::{prelude::*, regex::regex};
 use itertools::Itertools;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let universe = Universe::new(&self.input, 1);
-        Ok(universe.gen_combinations().to_string().into())
+        universe.gen_combinations().to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let universe = Universe::new(&self.input, 999999);
-        Ok(universe.gen_combinations().to_string().into())
+        universe.gen_combinations().to_string()
     }
 }
 

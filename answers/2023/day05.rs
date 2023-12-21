@@ -7,7 +7,7 @@ use rayon::iter::ParallelBridge;
 use rayon::prelude::ParallelIterator;
 
 impl Answers for Day {
-    fn part_one(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_one(&mut self) -> String {
         let mut seeds_str = String::new();
         let _ = self.reader.read_line(&mut seeds_str);
         // I should probably start writing srfs so I don't have to keep copying and pasting
@@ -43,10 +43,10 @@ impl Answers for Day {
             read_line.clear();
             let _ = self.reader.read_line(&mut read_line);
         }
-        Ok(seeds.iter().min().unwrap().to_string())
+        seeds.iter().min().unwrap().to_string()
     }
 
-    fn part_two(&mut self) -> Result<String, Box<dyn Error>> {
+    fn part_two(&mut self) -> String {
         let mut seeds_str = String::new();
         let _ = self.reader.read_line(&mut seeds_str);
         let seeds = regex("number")
@@ -69,7 +69,7 @@ impl Answers for Day {
                 .unwrap());
             seed_bank.clear();
         }
-        Ok(answer.to_string())
+        answer.to_string()
     }
 }
 
